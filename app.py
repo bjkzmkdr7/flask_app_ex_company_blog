@@ -4,6 +4,7 @@ from company_blog.models import User
 
 def init_db_if_needed(app):
     with app.app_context():
+        db.drop_all()  
         db.create_all()
 
         # 管理ユーザーがいなければ作成
