@@ -10,13 +10,16 @@ app.config['SECRET_KEY'] = 'mysecretkey'
 basedir = os.path.abspath(os.path.dirname(__file__))
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'data.sqlite')
 uri = os.environ.get('DATABASE_URL')
-if uri:
-    if uri.startswith('postgres://'):
-        uri = uri.replace('postgres://', 'postgresql://', 1)
-        app.config['SQLALCHEMY_DATABASE_URI'] = uri
-else:
-     # passwordにはインストール時に設定したパスワードを入力してください。
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:password@localhost'
+# if uri:
+
+if uri.startswith('postgres://'):
+    uri = uri.replace('postgres://', 'postgresql://', 1)
+app.config['SQLALCHEMY_DATABASE_URI'] = uri
+    
+# ローカル環境ではコメントアウトしている以下の実装で可能
+# else:
+#      # passwordにはインストール時に設定したパスワードを入力してください。
+#     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:password@localhost'
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
