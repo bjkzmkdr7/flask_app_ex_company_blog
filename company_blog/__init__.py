@@ -46,3 +46,11 @@ from company_blog.error_pages.handlers import error_pages
 app.register_blueprint(main)
 app.register_blueprint(users)
 app.register_blueprint(error_pages)
+
+import os
+from flask_migrate import upgrade
+
+# Render の本番環境でのみ実行
+if os.environ.get("RUN_MIGRATIONS") == "true":
+    with app.app_context():
+        upgrade()
